@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getFromLocalstorage } from "../utils";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -20,24 +19,4 @@ const client = axios.create({
   ],
 });
 
-const access_token = getFromLocalstorage("access_token");
-
-const clientAuthenticated = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: "bearer " + access_token,
-  },
-  transformRequest: [
-    (data) => {
-      return JSON.stringify(data);
-    },
-  ],
-  transformResponse: [
-    (data) => {
-      return JSON.parse(data);
-    },
-  ],
-});
-
-export { client, clientAuthenticated };
+export { client };

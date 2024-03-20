@@ -14,12 +14,12 @@ import {
 } from "../types";
 import { ActionType } from "../types/actionTypes";
 import { client } from "../axios/client";
-import { getFromLocalstorage, removeKeyOfLocalstorage } from "../utils";
-import { useNavigate } from "react-router-dom";
+import { getFromLocalstorage } from "../utils";
+import { useAxiosErrorResponse } from "../hooks/useAxiosErrorResponse";
 
 export const TodoProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(TodoReducer, INITIAL_STATE);
-  const navigate = useNavigate();
+  const { validateError } = useAxiosErrorResponse();
 
   const getTodos = async () => {
     dispatch({
@@ -45,11 +45,7 @@ export const TodoProvider = ({ children }: Props) => {
         payload: { todos: [], loadingTodos: false },
       });
 
-      if ((error as HttpErrorResponse).response.status === 401) {
-        removeKeyOfLocalstorage("access_token");
-
-        navigate("/login");
-      }
+      validateError(error as HttpErrorResponse);
     }
   };
 
@@ -82,11 +78,7 @@ export const TodoProvider = ({ children }: Props) => {
         payload: { todo: undefined },
       });
 
-      if ((error as HttpErrorResponse).response.status === 401) {
-        removeKeyOfLocalstorage("access_token");
-
-        navigate("/login");
-      }
+      validateError(error as HttpErrorResponse);
     }
   };
 
@@ -121,11 +113,7 @@ export const TodoProvider = ({ children }: Props) => {
         payload: { todo: undefined },
       });
 
-      if ((error as HttpErrorResponse).response.status === 401) {
-        removeKeyOfLocalstorage("access_token");
-
-        navigate("/login");
-      }
+      validateError(error as HttpErrorResponse);
     }
   };
 
@@ -156,11 +144,7 @@ export const TodoProvider = ({ children }: Props) => {
         payload: { todo_id: undefined },
       });
 
-      if ((error as HttpErrorResponse).response.status === 401) {
-        removeKeyOfLocalstorage("access_token");
-
-        navigate("/login");
-      }
+      validateError(error as HttpErrorResponse);
     }
   };
 
@@ -192,11 +176,7 @@ export const TodoProvider = ({ children }: Props) => {
         payload: { todoDetail: [], loadingTodoDetail: false },
       });
 
-      if ((error as HttpErrorResponse).response.status === 401) {
-        removeKeyOfLocalstorage("access_token");
-
-        navigate("/login");
-      }
+      validateError(error as HttpErrorResponse);
     }
   };
 
@@ -232,11 +212,7 @@ export const TodoProvider = ({ children }: Props) => {
         payload: { todoDetailItem: undefined },
       });
 
-      if ((error as HttpErrorResponse).response.status === 401) {
-        removeKeyOfLocalstorage("access_token");
-
-        navigate("/login");
-      }
+      validateError(error as HttpErrorResponse);
     }
   };
 
@@ -269,11 +245,7 @@ export const TodoProvider = ({ children }: Props) => {
         payload: { todoDetailItem: undefined },
       });
 
-      if ((error as HttpErrorResponse).response.status === 401) {
-        removeKeyOfLocalstorage("access_token");
-
-        navigate("/login");
-      }
+      validateError(error as HttpErrorResponse);
     }
   };
 
@@ -309,11 +281,7 @@ export const TodoProvider = ({ children }: Props) => {
         payload: { todoDetailItem: undefined },
       });
 
-      if ((error as HttpErrorResponse).response.status === 401) {
-        removeKeyOfLocalstorage("access_token");
-
-        navigate("/login");
-      }
+      validateError(error as HttpErrorResponse);
     }
   };
 
