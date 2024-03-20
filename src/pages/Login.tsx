@@ -3,12 +3,17 @@ import { client } from "../axios/client";
 import { useNavigate } from "react-router-dom";
 
 import { HttpErrorResponse } from "../types/index";
+import { useAxiosErrorResponse } from "../hooks/useAxiosErrorResponse";
 
 const Login = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+
+  const { validateError } = useAxiosErrorResponse();
+
   const navigate = useNavigate();
 
   const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +25,7 @@ const Login = () => {
 
   const signIn = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
 
     try {
       const response = await client.post("/api/auth/login", form);
@@ -31,8 +37,9 @@ const Login = () => {
 
       navigate("/");
     } catch (error) {
-      console.log((error as HttpErrorResponse).response.data?.error);
+      validateError(error as HttpErrorResponse);
     }
+    setLoading(false);
   };
 
   return (
@@ -46,7 +53,7 @@ const Login = () => {
             <div className="icon d-flex align-items-center justify-content-center">
               <span className="fa fa-user-o"></span>
             </div>
-            <h3 className="text-center mb-4">Sign In</h3>
+            <h3 className="text-center mb-4 text-white">Sign In</h3>
             <form action="#" className="login-form" onSubmit={signIn}>
               <div className="form-group mb-3">
                 <input
@@ -68,13 +75,17 @@ const Login = () => {
                   onChange={handleChangeInput}
                 />
               </div>
-              <div className="form-group">
-                <button
-                  type="submit"
-                  className="form-control btn btn-primary rounded submit"
-                >
-                  Login
-                </button>
+              <div className="form-group d-flex justify-content-center">
+                {loading ? (
+                  <div className="lds-hourglass" />
+                ) : (
+                  <button
+                    type="submit"
+                    className="form-control btn btn-primary rounded submit"
+                  >
+                    Login
+                  </button>
+                )}
               </div>
             </form>
           </div>

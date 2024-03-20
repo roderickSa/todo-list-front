@@ -13,7 +13,7 @@ const Todo = () => {
 
   return (
     <>
-      <div className="container bg-secondary text-white">
+      <div className="container text-white">
         <div className="mb-3 mt-4">
           <h2 className="d-grid justify-content-center pt-1">Todo-App</h2>
         </div>
