@@ -25,11 +25,17 @@ interface HttpTodoDetailItemUpdateResponse {
 interface HttpErrorResponse {
   response: {
     data: ErrorResponse;
+    status: number;
   };
 }
 
 interface ErrorResponse {
-  error: string;
+  data: {
+    error: {
+      code: number;
+      message: string;
+    };
+  };
 }
 
 type TodoType = {

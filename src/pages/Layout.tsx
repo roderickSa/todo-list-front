@@ -23,7 +23,11 @@ const Layout = () => {
 
       navigate("/login");
     } catch (error) {
-      console.log((error as HttpErrorResponse).response.data?.error);
+      if ((error as HttpErrorResponse).response.status === 401) {
+        removeKeyOfLocalstorage("access_token");
+
+        navigate("/login");
+      }
     }
   };
 
