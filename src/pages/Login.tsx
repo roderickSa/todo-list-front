@@ -43,7 +43,11 @@ const Login = () => {
   };
 
   return (
-    <div className="container" style={{ padding: "10rem 0" }}>
+    <div className="container position-relative" style={{ padding: "10rem 0" }}>
+      <div className="mt-3 position-absolute top-0 start-0">
+        <h6>Usuario: test@example.com</h6>
+        <h6>contraseña: 12345</h6>
+      </div>
       <div className="row justify-content-center">
         <div
           className="col-md-7 col-lg-5"
